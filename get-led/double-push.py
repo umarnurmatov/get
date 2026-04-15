@@ -19,17 +19,24 @@ def dec2bin(value):
 while True:
 	up_st = GPIO.input(up)
 	down_st = GPIO.input(down)
+	changed = False
 
 	if up_st and down_st:
 		num = 2**len(leds)-1
+		changed = True
 
 	elif up_st:
 		num = min(num+1, 2**len(leds) - 1)
+		changed = True
 
 	elif down_st:
 		num = max(num-1, 0)
+		changed = True
 
-	print(num, dec2bin(num))
-	time.sleep(sleep_time)
-	GPIO.output(leds, dec2bin(num))
+
+	if changed:
+		print(num, dec2bin(num))
+		time.sleep(sleep_time)
+		GPIO.output(leds, dec2bin(num))
+
 		
