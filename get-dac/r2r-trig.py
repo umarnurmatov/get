@@ -16,7 +16,7 @@ if __name__ == "__main__":
 
 	try:
 		while True:
-			voltage = AMP * sg.get_sin_wave_ampl(SIG_FREQ,t)
+			voltage = AMP * sg.get_trig_wave(SIG_FREQ,t)
 			dac.set_voltage(voltage)
 			t += 1/SMPL_FREQ
 			sg.wait_for_sampling_period(SMPL_FREQ)
