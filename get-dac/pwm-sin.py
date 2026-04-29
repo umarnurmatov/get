@@ -4,7 +4,7 @@ import signal_generator as sg
 AMP = 2
 SIG_FREQ = 10
 SMPL_FREQ = 1000
-PWM_FREQ = 1000
+PWM_FREQ = 5000
 
 
 DAC_DRANGE_V = 3.290

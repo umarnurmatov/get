@@ -28,6 +28,25 @@ class R2R_ADC:
 
 		return i-1
 
+	def sar_adc(self):
+		width = len(self.pins)
+		l = 0
+		r = 2**width-1
+		while r > l:
+			m = l + (r-l) // 2
+			self.dac_set_num(m)
+			time.sleep(self.cmp_t)
+			if GPIO.input(self.cmp_pin):
+				r = m
+			else:
+				l = m + 1
+		return r-1
+
+
+	def get_sar_voltage(self):
+		depth = len(self.pins)
+		return self.sar_adc() * self.drange/2**depth
+
 	def get_sc_voltage(self):
 		depth = len(self.pins)
 		return self.seq_count_adc() * self.drange/2**depth
@@ -40,6 +59,6 @@ if __name__ == "__main__":
 	adc = R2R_ADC(3.3)
 	while True:
 		try:
-			print("{:.2f}V".format(adc.get_sc_voltage()))
+			print("{:.2f}V".format(adc.get_sar_voltage()))
 		finally:
 			pass
